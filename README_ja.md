@@ -1,4 +1,4 @@
-# CmdIME
+# CmdKana
 
 [English](README.md) | 日本語
 
@@ -21,22 +21,22 @@
 
 ## ビルドとインストール
 
-1. `CmdIME.xcodeproj` を Xcode で開く
-2. ターゲット CmdIME の Signing & Capabilities で Team を選択する
+1. `CmdKana.xcodeproj` を Xcode で開く
+2. ターゲット CmdKana の Signing & Capabilities で Team を選択する
    - 署名が毎回変わるとアクセシビリティ権限がリセットされるため、Team の設定を推奨します
-3. Product > Archive、またはビルドして生成された `CmdIME.app` を `/Applications` にコピーする
-4. `CmdIME.app` を起動する
+3. Product > Archive、またはビルドして生成された `CmdKana.app` を `/Applications` にコピーする
+4. `CmdKana.app` を起動する
 
 コマンドラインでビルドする場合:
 
 ```sh
-xcodebuild -project CmdIME.xcodeproj -scheme CmdIME -configuration Release -derivedDataPath build build
+xcodebuild -project CmdKana.xcodeproj -scheme CmdKana -configuration Release -derivedDataPath build build
 open build/Build/Products/Release
 ```
 
 ## 初回設定
 
-1. 初回起動時に表示されるダイアログから、システム設定 > プライバシーとセキュリティ > アクセシビリティ を開き、CmdIME を許可する（許可した後、約 1 秒で動作を始めます。再起動は不要です）
+1. 初回起動時に表示されるダイアログから、システム設定 > プライバシーとセキュリティ > アクセシビリティ を開き、CmdKana を許可する（許可した後、約 1 秒で動作を始めます。再起動は不要です）
 2. 自動起動したい場合は、メニューバーの ⌘ アイコンから「ログイン時に起動」をオンにする
 
 以前 ⌘英かな を使っていた場合は、競合を防ぐため ⌘英かな を終了し、アクセシビリティの一覧からも削除してください。
@@ -55,13 +55,13 @@ open build/Build/Products/Release
 ## ファイル構成
 
 ```
-CmdIME/
-├── CmdIMEApp.swift   # アプリ本体とメニューバー UI
+CmdKana/
+├── CmdKanaApp.swift  # アプリ本体とメニューバー UI
 └── KeyMonitor.swift  # ⌘ キーの検出と英数／かなキーの送出
 ```
 
 ## アンインストール
 
 1. メニューから「ログイン時に起動」をオフにして「終了」を選ぶ
-2. `/Applications/CmdIME.app` を削除する
-3. システム設定 > プライバシーとセキュリティ > アクセシビリティ から CmdIME を削除する
+2. `/Applications/CmdKana.app` を削除する
+3. システム設定 > プライバシーとセキュリティ > アクセシビリティ から CmdKana を削除する

@@ -1,6 +1,6 @@
 # AGENTS.md
 
-CmdIME is a macOS menu bar app: tapping the left ⌘ key alone switches to Eisu (English) input, and the right ⌘ key to Kana (Japanese) input. It replaces the unmaintained [cmd-eikana](https://github.com/iMasanari/cmd-eikana).
+CmdKana is a macOS menu bar app: tapping the left ⌘ key alone switches to Eisu (English) input, and the right ⌘ key to Kana (Japanese) input. It replaces the unmaintained [cmd-eikana](https://github.com/iMasanari/cmd-eikana).
 
 ## Principles
 
@@ -9,16 +9,16 @@ CmdIME is a macOS menu bar app: tapping the left ⌘ key alone switches to Eisu 
 
 ## Structure
 
-- `CmdIME/CmdIMEApp.swift`: app entry point and `MenuBarExtra` menu (launch at login, quit)
-- `CmdIME/KeyMonitor.swift`: listen-only `CGEvent` tap that detects a solo ⌘ tap and posts `kVK_JIS_Eisu` / `kVK_JIS_Kana` key events
-- `CmdIME.xcodeproj`: uses a folder-synchronized group, so new files under `CmdIME/` are picked up without editing `project.pbxproj`
+- `CmdKana/CmdKanaApp.swift`: app entry point and `MenuBarExtra` menu (launch at login, quit)
+- `CmdKana/KeyMonitor.swift`: listen-only `CGEvent` tap that detects a solo ⌘ tap and posts `kVK_JIS_Eisu` / `kVK_JIS_Kana` key events
+- `CmdKana.xcodeproj`: uses a folder-synchronized group, so new files under `CmdKana/` are picked up without editing `project.pbxproj`
 
 Settings live in build settings (`GENERATE_INFOPLIST_FILE`, `INFOPLIST_KEY_LSUIElement`); there is no Info.plist file. App Sandbox is off because the event tap and event posting need it off.
 
 ## Build
 
 ```sh
-xcodebuild -project CmdIME.xcodeproj -scheme CmdIME -configuration Release -derivedDataPath build CODE_SIGN_IDENTITY=- build
+xcodebuild -project CmdKana.xcodeproj -scheme CmdKana -configuration Release -derivedDataPath build CODE_SIGN_IDENTITY=- build
 ```
 
 There are no automated tests. Key switching needs Accessibility permission and must be verified manually by the user.

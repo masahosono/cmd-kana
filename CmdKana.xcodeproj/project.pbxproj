@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		A10000000000000000000001 /* CmdIME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CmdIME.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A10000000000000000000001 /* CmdKana.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CmdKana.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		A10000000000000000000002 /* CmdIME */ = {isa = PBXFileSystemSynchronizedRootGroup; path = CmdIME; sourceTree = "<group>"; };
+		A10000000000000000000002 /* CmdKana */ = {isa = PBXFileSystemSynchronizedRootGroup; path = CmdKana; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -19,14 +19,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A10000000000000000000004 = {isa = PBXGroup; children = (A10000000000000000000002 /* CmdIME */, A10000000000000000000005 /* Products */); sourceTree = "<group>"; };
-		A10000000000000000000005 /* Products */ = {isa = PBXGroup; children = (A10000000000000000000001 /* CmdIME.app */); name = Products; sourceTree = "<group>"; };
+		A10000000000000000000004 = {isa = PBXGroup; children = (A10000000000000000000002 /* CmdKana */, A10000000000000000000005 /* Products */); sourceTree = "<group>"; };
+		A10000000000000000000005 /* Products */ = {isa = PBXGroup; children = (A10000000000000000000001 /* CmdKana.app */); name = Products; sourceTree = "<group>"; };
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A10000000000000000000006 /* CmdIME */ = {
+		A10000000000000000000006 /* CmdKana */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A1000000000000000000000B /* Build configuration list for PBXNativeTarget "CmdIME" */;
+			buildConfigurationList = A1000000000000000000000B /* Build configuration list for PBXNativeTarget "CmdKana" */;
 			buildPhases = (
 				A10000000000000000000007 /* Sources */,
 				A10000000000000000000003 /* Frameworks */,
@@ -34,10 +34,10 @@
 			);
 			buildRules = ();
 			dependencies = ();
-			fileSystemSynchronizedGroups = (A10000000000000000000002 /* CmdIME */);
-			name = CmdIME;
-			productName = CmdIME;
-			productReference = A10000000000000000000001 /* CmdIME.app */;
+			fileSystemSynchronizedGroups = (A10000000000000000000002 /* CmdKana */);
+			name = CmdKana;
+			productName = CmdKana;
+			productReference = A10000000000000000000001 /* CmdKana.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -46,7 +46,7 @@
 		A10000000000000000000009 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {BuildIndependentTargetsInParallel = 1; LastSwiftUpdateCheck = 2700; LastUpgradeCheck = 2700;};
-			buildConfigurationList = A1000000000000000000000A /* Build configuration list for PBXProject "CmdIME" */;
+			buildConfigurationList = A1000000000000000000000A /* Build configuration list for PBXProject "CmdKana" */;
 			developmentRegion = ja;
 			hasScannedForEncodings = 0;
 			knownRegions = (ja, Base);
@@ -56,7 +56,7 @@
 			productRefGroup = A10000000000000000000005 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
-			targets = (A10000000000000000000006 /* CmdIME */);
+			targets = (A10000000000000000000006 /* CmdKana */);
 		};
 /* End PBXProject section */
 
@@ -102,7 +102,7 @@
 				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/../Frameworks");
 				MARKETING_VERSION = 1.0;
 				CURRENT_PROJECT_VERSION = 1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.masahosono.CmdIME;
+				PRODUCT_BUNDLE_IDENTIFIER = com.masahosono.CmdKana;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 6.0;
 			};
@@ -120,7 +120,7 @@
 				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/../Frameworks");
 				MARKETING_VERSION = 1.0;
 				CURRENT_PROJECT_VERSION = 1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.masahosono.CmdIME;
+				PRODUCT_BUNDLE_IDENTIFIER = com.masahosono.CmdKana;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 6.0;
 			};
@@ -129,8 +129,8 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A1000000000000000000000A /* Build configuration list for PBXProject "CmdIME" */ = {isa = XCConfigurationList; buildConfigurations = (A1000000000000000000000C /* Debug */, A1000000000000000000000D /* Release */); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
-		A1000000000000000000000B /* Build configuration list for PBXNativeTarget "CmdIME" */ = {isa = XCConfigurationList; buildConfigurations = (A1000000000000000000000E /* Debug */, A1000000000000000000000F /* Release */); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		A1000000000000000000000A /* Build configuration list for PBXProject "CmdKana" */ = {isa = XCConfigurationList; buildConfigurations = (A1000000000000000000000C /* Debug */, A1000000000000000000000D /* Release */); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		A1000000000000000000000B /* Build configuration list for PBXNativeTarget "CmdKana" */ = {isa = XCConfigurationList; buildConfigurations = (A1000000000000000000000E /* Debug */, A1000000000000000000000F /* Release */); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
 /* End XCConfigurationList section */
 	};
 	rootObject = A10000000000000000000009 /* Project object */;

@@ -1,4 +1,4 @@
-# CmdIME
+# CmdKana
 
 English | [日本語](README_ja.md)
 
@@ -21,22 +21,22 @@ The input mode does not switch if you press another key or use the mouse while h
 
 ## Build and install
 
-1. Open `CmdIME.xcodeproj` in Xcode.
-2. Select your Team under Signing & Capabilities for the CmdIME target.
+1. Open `CmdKana.xcodeproj` in Xcode.
+2. Select your Team under Signing & Capabilities for the CmdKana target.
    - Setting a Team is recommended because Accessibility permission is reset whenever the code signature changes.
-3. Use Product > Archive, or build and copy the generated `CmdIME.app` to `/Applications`.
-4. Launch `CmdIME.app`.
+3. Use Product > Archive, or build and copy the generated `CmdKana.app` to `/Applications`.
+4. Launch `CmdKana.app`.
 
 To build from the command line:
 
 ```sh
-xcodebuild -project CmdIME.xcodeproj -scheme CmdIME -configuration Release -derivedDataPath build build
+xcodebuild -project CmdKana.xcodeproj -scheme CmdKana -configuration Release -derivedDataPath build build
 open build/Build/Products/Release
 ```
 
 ## First-time setup
 
-1. From the dialog shown on first launch, open System Settings > Privacy & Security > Accessibility and allow CmdIME. The app starts working about one second after you allow it; no restart is needed.
+1. From the dialog shown on first launch, open System Settings > Privacy & Security > Accessibility and allow CmdKana. The app starts working about one second after you allow it; no restart is needed.
 2. To launch automatically, turn on 「ログイン時に起動」 (Launch at Login) from the ⌘ icon in the menu bar.
 
 If you used ⌘英かな before, quit it and remove it from the Accessibility list to avoid conflicts.
@@ -55,13 +55,13 @@ Instead of selecting an input source directly, the app posts the same events as 
 ## Files
 
 ```
-CmdIME/
-├── CmdIMEApp.swift   # App entry point and menu bar UI
+CmdKana/
+├── CmdKanaApp.swift  # App entry point and menu bar UI
 └── KeyMonitor.swift  # Detects ⌘ keys and posts Eisu / Kana key events
 ```
 
 ## Uninstall
 
 1. Turn off 「ログイン時に起動」 (Launch at Login) in the menu, then choose 「終了」 (Quit).
-2. Delete `/Applications/CmdIME.app`.
-3. Remove CmdIME from System Settings > Privacy & Security > Accessibility.
+2. Delete `/Applications/CmdKana.app`.
+3. Remove CmdKana from System Settings > Privacy & Security > Accessibility.
