@@ -55,8 +55,8 @@ The version in the tag (without `v`) becomes the app version.
 
 ## First-time setup
 
-1. From the dialog shown on first launch, open System Settings > Privacy & Security > Accessibility and allow CmdKana. The app starts working about one second after you allow it; no restart is needed.
-2. To launch automatically, turn on 「ログイン時に起動」 (Launch at Login) from the ⌘ icon in the menu bar.
+1. From the dialog shown on first launch, open System Settings > Privacy & Security > Accessibility and allow CmdKana. Until you allow it, the menu bar shows a warning icon, and 「アクセシビリティを許可…」 (Allow Accessibility…) in its menu opens the setting. Once you allow it, CmdKana relaunches itself and the icon changes to か in a square.
+2. To launch automatically, turn on 「ログイン時に起動」 (Launch at Login) from the か icon in the menu bar.
 
 If you used ⌘英かな before, quit it and remove it from the Accessibility list to avoid conflicts.
 

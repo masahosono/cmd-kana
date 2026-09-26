@@ -17,8 +17,8 @@ enum KeyMonitor {
 
     /// Creates an event tap for key and mouse input and starts monitoring on the main run loop.
     ///
-    /// If the event tap cannot be created because Accessibility permission has not been granted yet,
-    /// retries after one second, and keeps retrying until the permission is granted.
+    /// Call this only after Accessibility permission has been granted. Without it, the tap
+    /// may be created but never receive events.
     static func start() {
         let types: [CGEventType] = [.flagsChanged, .keyDown, .leftMouseDown, .rightMouseDown, .otherMouseDown]
         let mask = types.reduce(CGEventMask(0)) { $0 | 1 << $1.rawValue }
@@ -30,11 +30,7 @@ enum KeyMonitor {
                 return Unmanaged.passUnretained(event)
             },
             userInfo: nil)
-        guard let tap else {
-            // Retry until Accessibility permission is granted.
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { start() }
-            return
-        }
+        guard let tap else { return }
         CFRunLoopAddSource(CFRunLoopGetMain(), CFMachPortCreateRunLoopSource(nil, tap, 0), .commonModes)
     }
 
