@@ -2,15 +2,15 @@ import Carbon.HIToolbox
 import CoreGraphics
 import Foundation
 
-/// 左⌘の単独タップで英数、右⌘の単独タップでかなキーを送出する。
+/// Sends the Eisu key when the left Command key is tapped alone, and the Kana key when the right one is.
 enum KeyMonitor {
     nonisolated(unsafe) private static var tap: CFMachPort?
     nonisolated(unsafe) private static var pendingKey: Int64?
 
-    /// キー入力とマウス入力を監視するイベントタップを作成し、メインランループで監視を開始する。
+    /// Creates an event tap for key and mouse input and starts monitoring on the main run loop.
     ///
-    /// アクセシビリティ権限がまだなくてイベントタップを作成できない場合は、
-    /// 1 秒後に再試行する。権限が付与されるまで再試行を続ける。
+    /// If the event tap cannot be created because Accessibility permission has not been granted yet,
+    /// retries after one second, and keeps retrying until the permission is granted.
     static func start() {
         let types: [CGEventType] = [.flagsChanged, .keyDown, .leftMouseDown, .rightMouseDown, .otherMouseDown]
         let mask = types.reduce(CGEventMask(0)) { $0 | 1 << $1.rawValue }
@@ -23,23 +23,23 @@ enum KeyMonitor {
             },
             userInfo: nil)
         guard let tap else {
-            // アクセシビリティ権限が付与されるまで再試行する
+            // Retry until Accessibility permission is granted.
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) { start() }
             return
         }
         CFRunLoopAddSource(CFRunLoopGetMain(), CFMachPortCreateRunLoopSource(nil, tap, 0), .commonModes)
     }
 
-    /// イベントタップで受け取ったイベントを処理し、⌘キーの単独タップを判定する。
+    /// Handles an event received by the event tap and detects a solo tap of a Command key.
     ///
-    /// ⌘キーが押されたら、そのキーコードを記録する。記録したのと同じ⌘キーが、
-    /// 途中で他のキーやマウスを操作されずに離されたら単独タップとみなし、
-    /// 左⌘なら英数キー、右⌘ならかなキーを送出する。
-    /// イベントタップが OS によって無効化された場合は、再び有効にする。
+    /// Records the key code when a Command key is pressed. If the same Command key is released
+    /// with no other key or mouse input in between, the press counts as a solo tap, and this sends
+    /// the Eisu key for the left Command key or the Kana key for the right one.
+    /// Re-enables the event tap if the system has disabled it.
     ///
     /// - Parameters:
-    ///   - type: 受け取ったイベントの種類。
-    ///   - event: 受け取ったイベント。
+    ///   - type: The type of the received event.
+    ///   - event: The received event.
     private static func handle(_ type: CGEventType, _ event: CGEvent) {
         switch type {
         case .tapDisabledByTimeout, .tapDisabledByUserInput:
@@ -65,11 +65,11 @@ enum KeyMonitor {
         }
     }
 
-    /// 指定したキーを 1 回押して離すキーイベントを送出する。
+    /// Posts key events that press and release the given key once.
     ///
-    /// 送出したキーイベントを macOS と IME が受け取り、入力モードを切り替える。
+    /// macOS and the input method receive these events and switch the input mode.
     ///
-    /// - Parameter key: 送出するキーの仮想キーコード（`kVK_JIS_Eisu` または `kVK_JIS_Kana`）。
+    /// - Parameter key: The virtual key code to post (`kVK_JIS_Eisu` or `kVK_JIS_Kana`).
     private static func post(_ key: Int) {
         let source = CGEventSource(stateID: .hidSystemState)
         for down in [true, false] {

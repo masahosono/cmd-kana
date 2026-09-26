@@ -1,65 +1,67 @@
 # CmdIME
 
-左右の ⌘ キーで英数／かなを切り替える、macOS のメニューバー常駐アプリです。
-[⌘英かな (cmd-eikana)](https://github.com/iMasanari/cmd-eikana) がメンテナンスされなくなったため、代わりとして必要最低限の機能だけを実装しました。
+English | [日本語](README_ja.md)
 
-## 機能
+A macOS menu bar app that switches between Eisu (English) and Kana (Japanese) input with the left and right Command keys.
+It replaces [⌘英かな (cmd-eikana)](https://github.com/iMasanari/cmd-eikana), which is no longer maintained, and implements only the essential features.
 
-- 左 ⌘ を単独で押して離す → 英数（英語入力）
-- 右 ⌘ を単独で押して離す → かな（日本語入力）
-- メニューバーに常駐し、Dock には表示されない
-- ログイン時の自動起動（メニューから切り替え）
+## Features
 
-⌘ を押している間に他のキーやマウスを操作した場合は切り替えないので、⌘C などのショートカットには影響しません。
+- Tap the left ⌘ key alone → Eisu (English input)
+- Tap the right ⌘ key alone → Kana (Japanese input)
+- Runs in the menu bar and does not appear in the Dock
+- Launch at login (toggle from the menu)
 
-## 動作環境
+The input mode does not switch if you press another key or use the mouse while holding ⌘, so shortcuts such as ⌘C are not affected.
 
-- macOS 15 以降
-- Xcode 16 以降（ビルドする場合）
+## Requirements
 
-## ビルドとインストール
+- macOS 15 or later
+- Xcode 16 or later (to build)
 
-1. `CmdIME.xcodeproj` を Xcode で開く
-2. ターゲット CmdIME の Signing & Capabilities で Team を選択する
-   - 署名が毎回変わるとアクセシビリティ権限がリセットされるため、Team の設定を推奨します
-3. Product > Archive、またはビルドして生成された `CmdIME.app` を `/Applications` にコピーする
-4. `CmdIME.app` を起動する
+## Build and install
 
-コマンドラインでビルドする場合:
+1. Open `CmdIME.xcodeproj` in Xcode.
+2. Select your Team under Signing & Capabilities for the CmdIME target.
+   - Setting a Team is recommended because Accessibility permission is reset whenever the code signature changes.
+3. Use Product > Archive, or build and copy the generated `CmdIME.app` to `/Applications`.
+4. Launch `CmdIME.app`.
+
+To build from the command line:
 
 ```sh
 xcodebuild -project CmdIME.xcodeproj -scheme CmdIME -configuration Release -derivedDataPath build build
 open build/Build/Products/Release
 ```
 
-## 初回設定
+## First-time setup
 
-1. 初回起動時に表示されるダイアログから、システム設定 > プライバシーとセキュリティ > アクセシビリティ を開き、CmdIME を許可する（許可した後、約 1 秒で動作を始めます。再起動は不要です）
-2. 自動起動したい場合は、メニューバーの ⌘ アイコンから「ログイン時に起動」をオンにする
+1. From the dialog shown on first launch, open System Settings > Privacy & Security > Accessibility and allow CmdIME. The app starts working about one second after you allow it; no restart is needed.
+2. To launch automatically, turn on 「ログイン時に起動」 (Launch at Login) from the ⌘ icon in the menu bar.
 
-以前 ⌘英かな を使っていた場合は、競合を防ぐため ⌘英かな を終了し、アクセシビリティの一覧からも削除してください。
+If you used ⌘英かな before, quit it and remove it from the Accessibility list to avoid conflicts.
 
-## 仕組み
+## How it works
 
-| 役割 | 使用 API |
+| Role | API |
 | --- | --- |
-| メニューバー常駐 | SwiftUI `MenuBarExtra` + `LSUIElement` |
-| ⌘ キーの検出 | `CGEvent.tapCreate`（listen-only のイベントタップ） |
-| 入力切り替え | JIS 配列の英数キー（`kVK_JIS_Eisu`）／かなキー（`kVK_JIS_Kana`）のイベントを送出 |
-| ログイン時起動 | `SMAppService.mainApp` |
+| Menu bar app | SwiftUI `MenuBarExtra` + `LSUIElement` |
+| Detecting ⌘ keys | `CGEvent.tapCreate` (listen-only event tap) |
+| Switching input | Posts events for the JIS Eisu key (`kVK_JIS_Eisu`) and Kana key (`kVK_JIS_Kana`) |
+| Launch at login | `SMAppService.mainApp` |
 
-入力ソースを直接指定するのではなく、英数キー／かなキーを押したときと同じイベントを送るので、ことえり・Google 日本語入力などの IME の種類を問わず動作します。
+Instead of selecting an input source directly, the app posts the same events as pressing the Eisu or Kana key. This lets it work with any Japanese input method, such as the built-in Japanese input or Google Japanese Input.
 
-## ファイル構成
+## Files
 
 ```
 CmdIME/
-├── CmdIMEApp.swift   # アプリ本体とメニューバー UI
-└── KeyMonitor.swift  # ⌘ キーの検出と英数／かなキーの送出
+├── CmdIMEApp.swift   # App entry point and menu bar UI
+└── KeyMonitor.swift  # Detects ⌘ keys and posts Eisu / Kana key events
 ```
 
-## アンインストール
+## Uninstall
 
-1. メニューから「ログイン時に起動」をオフにして「終了」を選ぶ
-2. `/Applications/CmdIME.app` を削除する
-3. システム設定 > プライバシーとセキュリティ > アクセシビリティ から CmdIME を削除する
+1. Turn off 「ログイン時に起動」 (Launch at Login) in the menu, then choose 「終了」 (Quit).
+2. Delete `/Applications/CmdIME.app`.
+3. Remove CmdIME from System Settings > Privacy & Security > Accessibility.
