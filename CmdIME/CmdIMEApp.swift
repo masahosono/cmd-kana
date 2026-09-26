@@ -2,8 +2,10 @@ import ApplicationServices
 import ServiceManagement
 import SwiftUI
 
+/// A menu bar app that switches between Eisu and Kana input with the left and right Command keys.
 @main
 struct CmdIMEApp: App {
+    /// Whether the app is registered to launch at login, kept in sync with `SMAppService.mainApp`.
     @State private var launchAtLogin = SMAppService.mainApp.status == .enabled
 
     /// Checks for Accessibility permission, then starts monitoring key input.

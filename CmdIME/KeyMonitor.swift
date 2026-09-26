@@ -4,7 +4,15 @@ import Foundation
 
 /// Sends the Eisu key when the left Command key is tapped alone, and the Kana key when the right one is.
 enum KeyMonitor {
+    /// The event tap that monitors input, or `nil` until it is created.
+    ///
+    /// Kept so the tap can be re-enabled when the system disables it.
     nonisolated(unsafe) private static var tap: CFMachPort?
+
+    /// The key code of the Command key that is currently held and still counts as a solo tap.
+    ///
+    /// Set when a Command key is pressed. Reset to `nil` when that key is released,
+    /// or when any other key, modifier, or mouse button is pressed first.
     nonisolated(unsafe) private static var pendingKey: Int64?
 
     /// Creates an event tap for key and mouse input and starts monitoring on the main run loop.
@@ -38,8 +46,10 @@ enum KeyMonitor {
     /// Re-enables the event tap if the system has disabled it.
     ///
     /// - Parameters:
-    ///   - type: The type of the received event.
-    ///   - event: The received event.
+    ///   - type: The event type, such as `flagsChanged` for modifier keys, `keyDown`,
+    ///     a mouse-down type, or `tapDisabledByTimeout` when the system has disabled the tap.
+    ///   - event: The event whose key code and modifier flags identify
+    ///     which Command key was pressed or released.
     private static func handle(_ type: CGEventType, _ event: CGEvent) {
         switch type {
         case .tapDisabledByTimeout, .tapDisabledByUserInput:
