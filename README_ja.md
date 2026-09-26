@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/icon.png" alt="CmdKana icon" width="128" height="128">
+</p>
+
 # CmdKana
 
 [English](README.md) | 日本語
