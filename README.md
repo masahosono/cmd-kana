@@ -75,6 +75,7 @@ Instead of selecting an input source directly, the app posts the same events as 
 
 ```
 CmdKana/
+├── AppIcon.icon      # App icon (Icon Composer)
 ├── CmdKanaApp.swift  # App entry point and menu bar UI
 └── KeyMonitor.swift  # Detects ⌘ keys and posts Eisu / Kana key events
 ```

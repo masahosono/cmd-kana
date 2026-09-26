@@ -9,8 +9,9 @@ CmdKana is a macOS menu bar app: tapping the left ⌘ key alone switches to Eisu
 
 ## Structure
 
-- `CmdKana/CmdKanaApp.swift`: app entry point and `MenuBarExtra` menu (launch at login, quit)
+- `CmdKana/CmdKanaApp.swift`: app entry point and `MenuBarExtra` menu (launch at login, quit). Without Accessibility permission it shows a warning icon, and relaunches itself once the permission is granted
 - `CmdKana/KeyMonitor.swift`: listen-only `CGEvent` tap that detects a solo ⌘ tap and posts `kVK_JIS_Eisu` / `kVK_JIS_Kana` key events
+- `CmdKana/AppIcon.icon`: Icon Composer app icon. The `か` layer (`Assets/ka.svg`) is the Hiragino Sans W6 glyph converted to outlines, because Icon Composer does not accept SVG text
 - `CmdKana.xcodeproj`: uses a folder-synchronized group, so new files under `CmdKana/` are picked up without editing `project.pbxproj`
 
 Settings live in build settings (`GENERATE_INFOPLIST_FILE`, `INFOPLIST_KEY_LSUIElement`); there is no Info.plist file. App Sandbox is off because the event tap and event posting need it off.

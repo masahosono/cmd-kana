@@ -75,6 +75,7 @@ git push origin v1.0.0
 
 ```
 CmdKana/
+├── AppIcon.icon      # アプリアイコン（Icon Composer）
 ├── CmdKanaApp.swift  # アプリ本体とメニューバー UI
 └── KeyMonitor.swift  # ⌘ キーの検出と英数／かなキーの送出
 ```
