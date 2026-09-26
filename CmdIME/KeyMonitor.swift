@@ -7,6 +7,10 @@ enum KeyMonitor {
     nonisolated(unsafe) private static var tap: CFMachPort?
     nonisolated(unsafe) private static var pendingKey: Int64?
 
+    /// キー入力とマウス入力を監視するイベントタップを作成し、メインランループで監視を開始する。
+    ///
+    /// アクセシビリティ権限がまだなくてイベントタップを作成できない場合は、
+    /// 1 秒後に再試行する。権限が付与されるまで再試行を続ける。
     static func start() {
         let types: [CGEventType] = [.flagsChanged, .keyDown, .leftMouseDown, .rightMouseDown, .otherMouseDown]
         let mask = types.reduce(CGEventMask(0)) { $0 | 1 << $1.rawValue }
@@ -26,6 +30,16 @@ enum KeyMonitor {
         CFRunLoopAddSource(CFRunLoopGetMain(), CFMachPortCreateRunLoopSource(nil, tap, 0), .commonModes)
     }
 
+    /// イベントタップで受け取ったイベントを処理し、⌘キーの単独タップを判定する。
+    ///
+    /// ⌘キーが押されたら、そのキーコードを記録する。記録したのと同じ⌘キーが、
+    /// 途中で他のキーやマウスを操作されずに離されたら単独タップとみなし、
+    /// 左⌘なら英数キー、右⌘ならかなキーを送出する。
+    /// イベントタップが OS によって無効化された場合は、再び有効にする。
+    ///
+    /// - Parameters:
+    ///   - type: 受け取ったイベントの種類。
+    ///   - event: 受け取ったイベント。
     private static func handle(_ type: CGEventType, _ event: CGEvent) {
         switch type {
         case .tapDisabledByTimeout, .tapDisabledByUserInput:
@@ -51,6 +65,11 @@ enum KeyMonitor {
         }
     }
 
+    /// 指定したキーを 1 回押して離すキーイベントを送出する。
+    ///
+    /// 送出したキーイベントを macOS と IME が受け取り、入力モードを切り替える。
+    ///
+    /// - Parameter key: 送出するキーの仮想キーコード（`kVK_JIS_Eisu` または `kVK_JIS_Kana`）。
     private static func post(_ key: Int) {
         let source = CGEventSource(stateID: .hidSystemState)
         for down in [true, false] {

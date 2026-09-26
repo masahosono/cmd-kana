@@ -6,6 +6,9 @@ import SwiftUI
 struct CmdIMEApp: App {
     @State private var launchAtLogin = SMAppService.mainApp.status == .enabled
 
+    /// アクセシビリティ権限を確認してから、キー入力の監視を開始する。
+    ///
+    /// 権限がない場合は、許可を求めるシステムのダイアログを表示する。
     init() {
         AXIsProcessTrustedWithOptions(["AXTrustedCheckOptionPrompt": true] as CFDictionary)
         KeyMonitor.start()
