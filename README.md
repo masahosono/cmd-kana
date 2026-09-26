@@ -19,7 +19,15 @@ The input mode does not switch if you press another key or use the mouse while h
 - macOS 15 or later
 - Xcode 16 or later (to build)
 
-## Build and install
+## Install from Releases
+
+1. Download `CmdKana-vX.Y.Z.dmg` from [Releases](https://github.com/masahosono/cmd-kana/releases).
+2. Open the DMG and drag `CmdKana.app` to `Applications`.
+3. Launch `CmdKana.app`. The app is not notarized, so macOS blocks it the first time. Open System Settings > Privacy & Security, click Open Anyway for CmdKana, and launch it again.
+
+The app is ad-hoc signed, so its signature changes with every release. After updating, remove CmdKana from the Accessibility list and allow it again.
+
+## Build from source
 
 1. Open `CmdKana.xcodeproj` in Xcode.
 2. Select your Team under Signing & Capabilities for the CmdKana target.
@@ -30,9 +38,20 @@ The input mode does not switch if you press another key or use the mouse while h
 To build from the command line:
 
 ```sh
-xcodebuild -project CmdKana.xcodeproj -scheme CmdKana -configuration Release -derivedDataPath build build
+xcodebuild -project CmdKana.xcodeproj -scheme CmdKana -configuration Release -derivedDataPath build CODE_SIGN_IDENTITY=- build
 open build/Build/Products/Release
 ```
+
+## Release
+
+Push a version tag. GitHub Actions (`.github/workflows/release.yml`) builds the app, creates a DMG, and publishes it to Releases.
+
+```sh
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+The version in the tag (without `v`) becomes the app version.
 
 ## First-time setup
 

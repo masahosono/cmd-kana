@@ -19,7 +19,15 @@
 - macOS 15 以降
 - Xcode 16 以降（ビルドする場合）
 
-## ビルドとインストール
+## Releases からインストール
+
+1. [Releases](https://github.com/masahosono/cmd-kana/releases) から `CmdKana-vX.Y.Z.dmg` をダウンロードする
+2. DMG を開き、`CmdKana.app` を `Applications` にドラッグする
+3. `CmdKana.app` を起動する。公証を受けていないため、初回は macOS にブロックされます。システム設定 > プライバシーとセキュリティ で CmdKana の「このまま開く」をクリックし、もう一度起動してください
+
+アプリは ad-hoc 署名のため、リリースごとに署名が変わります。アップデートした後は、アクセシビリティの一覧から CmdKana を削除し、改めて許可してください。
+
+## ソースからビルド
 
 1. `CmdKana.xcodeproj` を Xcode で開く
 2. ターゲット CmdKana の Signing & Capabilities で Team を選択する
@@ -30,9 +38,20 @@
 コマンドラインでビルドする場合:
 
 ```sh
-xcodebuild -project CmdKana.xcodeproj -scheme CmdKana -configuration Release -derivedDataPath build build
+xcodebuild -project CmdKana.xcodeproj -scheme CmdKana -configuration Release -derivedDataPath build CODE_SIGN_IDENTITY=- build
 open build/Build/Products/Release
 ```
+
+## リリース
+
+バージョンのタグを push すると、GitHub Actions（`.github/workflows/release.yml`）がアプリをビルドして DMG を作り、Releases に公開します。
+
+```sh
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+タグのバージョン（`v` を除いた部分）が、アプリのバージョンになります。
 
 ## 初回設定
 

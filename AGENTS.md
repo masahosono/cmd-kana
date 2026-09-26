@@ -23,6 +23,12 @@ xcodebuild -project CmdKana.xcodeproj -scheme CmdKana -configuration Release -de
 
 There are no automated tests. Key switching needs Accessibility permission and must be verified manually by the user.
 
+## CI and release
+
+- `.github/workflows/ci.yml` builds on pushes to `main` and on pull requests.
+- `.github/workflows/release.yml` runs on `v*` tags: it builds with the tag as `MARKETING_VERSION`, packages `CmdKana-<tag>.dmg` with `hdiutil`, and publishes a GitHub Release.
+- Builds are ad-hoc signed and not notarized. Keep the build command in the workflows, `README.md`, and `README_ja.md` consistent.
+
 ## Conventions
 
 - Swift 6 language mode; minimum deployment target macOS 15.

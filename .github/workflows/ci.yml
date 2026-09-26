@@ -1,0 +1,17 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build
+        run: |
+          xcodebuild -project CmdKana.xcodeproj -scheme CmdKana -configuration Release \
+            -derivedDataPath build CODE_SIGN_IDENTITY=- build

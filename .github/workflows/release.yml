@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build
+        run: |
+          xcodebuild -project CmdKana.xcodeproj -scheme CmdKana -configuration Release \
+            -derivedDataPath build CODE_SIGN_IDENTITY=- \
+            MARKETING_VERSION="${GITHUB_REF_NAME#v}" CURRENT_PROJECT_VERSION="${{ github.run_number }}" \
+            build
+
+      - name: Create DMG
+        run: |
+          mkdir dmg
+          cp -R build/Build/Products/Release/CmdKana.app dmg/
+          ln -s /Applications dmg/Applications
+          hdiutil create -volname CmdKana -srcfolder dmg -format UDZO "CmdKana-$GITHUB_REF_NAME.dmg"
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" "CmdKana-$GITHUB_REF_NAME.dmg" --generate-notes
