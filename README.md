@@ -89,3 +89,7 @@ CmdKana/
 1. Turn off 「ログイン時に起動」 (Launch at Login) in the menu, then choose 「終了」 (Quit).
 2. Delete `/Applications/CmdKana.app`.
 3. Remove CmdKana from System Settings > Privacy & Security > Accessibility.
+
+## License
+
+[MIT](LICENSE)
